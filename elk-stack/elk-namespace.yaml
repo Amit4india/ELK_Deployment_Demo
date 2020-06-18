@@ -1,0 +1,6 @@
+---
+# Logging Namespace. All below are a part of this namespace.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
