@@ -41,7 +41,7 @@ pipeline {
             }
 
             steps {
-                build job: 'Aribus_Kubernetes_Setup', parameters: [string(name: 'Kops_Option', value: 'DestroyCluster')]
+                build job: 'Airbus_Kubernetes_Setup', parameters: [string(name: 'Kops_Option', value: 'DestroyCluster')]
             }
         }
 
