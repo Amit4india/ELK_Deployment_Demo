@@ -17,9 +17,9 @@ pipeline {
             }
 
             steps {
-               sh 'cd elk-stack'
-               echo "Deploying ELK stack"
+              echo "Deploying ELK stack"
                sh '''
+               cd elk-stack
                kubectl apply -f elk-namespace.yaml
                kubectl apply -f elk-serviceaccount.yaml
                kubectl apply -f elastic-deployment.yaml
