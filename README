@@ -1,3 +1,57 @@
-<-- This Repo is used for deploying ELK stack on Kubernetes Cluster running on AWS. -->
+Logging Infrastructure
+This is a sample setup for automated logging with the elastic stack on Kubernetes.
 
-Workflow :
+Pre-requisite:
+•	This Logging Infrastructure require Kubernetes Cluster to be up and running and the kube.conf has been set.
+•	It also required ingress controller to be configured on Kubernetes Cluster. We have chosen Nginx ingress controller for the same. We can use any other ingress controller.
+
+About Logging Infrastructure:
+In this logging Infrastructure, we are using following.
+•	Elasticsearch for storing and searching logs.
+•	Kibana for viewing them.
+•	Logstash for analysing and breaking down logs.
+•	Filebeat for pushing all app logs to Logstash.
+•	Metricbeat for pushing node analytics to Elasticsearch.
+•	Curator for regularly deleting old logs.
+
+Directory Structure
+ELKStack
+.idea
+---elk-stack
+    --curator-cronjob.yaml
+    --elastic-deployment.yaml
+    --elastic-service.yaml
+    --elk-namespace.yaml
+    --elk-serviceaccount.yaml
+    --filebeat-ds.yaml
+    --kibana-deployment.yaml
+    --kibana-service.yaml
+    --logstash-config.yaml
+    --logstash-deployment.yaml
+    --logstash-service.yaml
+    --metricbeat-ds.yaml
+---Essentials
+ingress_controller
+K8s_setup
+ingresscontroller
+Jenkinsfile
+pibkubernetes
+README
+
+Each Elasticsearch is installed as a StatefulSet so that there is some awareness between them.
+
+Filebeat and Metricbeat instances are installed as DaemonSets, meaning there is one for every node we have. This is because they read the logs right off the node. Without this we would miss logs from some nodes.
+
+
+
+Installation
+
+Firstly update the kibana-service.yaml file so that the ingress route matches one that points at your cluster.
+
+To install this on a cluster apply all the files.
+
+It's safest to do the Elasticsearch files first and wait for the pods to start up as the Logstash pod will fail if it cannot connect to the Elasticsearch instance and will need to be restarted.
+
+Nothing else matters order wise.
+
+

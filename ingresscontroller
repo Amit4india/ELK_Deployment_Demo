@@ -1,0 +1,81 @@
+pipeline {
+    agent any
+    parameters {
+        choice(
+                choices: ['CreateIngressController','AccessIngress' , 'DestroyIngressController', 'DeploySampleApplication'],
+                description: 'Select want you want to do', name: 'k8sIngress_Option'
+        )
+    }
+      stages {
+
+
+       stage('CreateDashboard') {
+            when {
+                expression {
+                    params.k8sIngress_Option == 'CreateIngressController'
+                }
+            }
+
+            steps {
+
+               sh '''
+               kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+               kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/aws/service-l4.yaml
+               kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/aws/patch-configmap-l4.yaml
+               '''
+                }
+            }
+
+
+        stage('AccessDashboard') {
+           when {
+           expression {
+              params.k8sIngress_Option == 'AccessIngress'
+           }
+       }
+         steps {
+
+            sh 'kubectl describe svc ingress-nginx -n ingress-nginx'
+
+       }
+
+    }
+
+       stage('DestroyDashboard') {
+           when {
+           expression {
+              params.k8sIngress_Option == 'DestroyIngressController'
+           }
+       }
+         steps {
+           sh '''
+               cd /home/users/amit_srivastava/k8s_setup
+               kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+               kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/aws/service-l4.yaml
+               '''
+
+       }
+
+    }
+        stage('DeploySampleApplication') {
+            when {
+                expression {
+                    params.k8sIngress_Option == 'DeploySampleApplication'
+                }
+            }
+
+            steps {
+
+               sh '''
+               cd /home/users/amit_srivastava/k8s_setup
+               kubectl apply -f apple.yaml
+               kubectl apply -f banana.yaml
+               kubectl apply -f ingressDefinition.yaml
+               '''
+                }
+            }
+
+
+
+            }
+}

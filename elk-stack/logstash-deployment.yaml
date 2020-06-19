@@ -3,15 +3,13 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: logstash-deployment
-  namespace: logging
+  namespace: kube-system
 spec:
   replicas: 1
   template:
     metadata:
       labels:
         app: logstash
-        annotations:
-          sidecar.istio.io/inject: "false"
     spec:
       containers:
         - name: logstash

@@ -1,16 +1,37 @@
 ---
-# Kibana Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: kibana
+  name: kibana-logging
   namespace: logging
   labels:
-    app: kibana
+    k8s-app: kibana-logging
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+    kubernetes.io/name: "Kibana"
 spec:
   ports:
     - port: 5601
       protocol: TCP
       targetPort: ui
   selector:
-    app: kibana
+    k8s-app: kibana-logging
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: logs-ingress
+  namespace: logging
+  labels:
+    app: logs
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    -
+      http:
+        paths:
+          -
+            backend:
+              serviceName:  kibana-logging
+              servicePort: 5601
