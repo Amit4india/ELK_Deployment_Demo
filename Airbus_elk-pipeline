@@ -39,6 +39,7 @@ pipeline {
                '''
                 echo " Deploying Curator"
                  sh '''
+                     cd elk-stack
                      kubectl apply -f curator-cronjob.yaml
                     '''
 
