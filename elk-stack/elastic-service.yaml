@@ -10,6 +10,7 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "Elasticsearch"
 spec:
+  type: LoadBalancer
   ports:
     - port: 9200
       protocol: TCP
