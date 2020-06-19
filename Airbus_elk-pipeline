@@ -32,6 +32,8 @@ pipeline {
                '''
                echo " Deploying MetricBeat and FileBeat"
                sh '''
+               pwd
+               cd elk-stack
                kubectl apply -f metricbeat-ds.yaml
                kubectl apply -f filebeat-ds.yaml
                '''
