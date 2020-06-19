@@ -11,4 +11,4 @@ spec:
   - protocol: TCP
     port: 5044
     targetPort: 5044
-  type: LoadBalancer
+  type: ClusterIP

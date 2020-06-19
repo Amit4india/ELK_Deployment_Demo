@@ -2,63 +2,49 @@ pipeline {
     agent any
     parameters {
         choice(
-                choices: ['CreateK8sCluster', 'DestroyK8sCluster',  'WSO2_VM', 'WSO2_K8s', 'Jenkins', 'Sonar'],
+                choices: ['CreateK8s_ELKStack', 'DestroyK8s_ELKStack'],
                 description: 'Select want you want to do', name: 'PIB_Options'
         )
-        string(name: 'branchName', defaultValue:'master' , description: 'Enter the name of client branch')
+        string(name: 'branchName', defaultValue: 'master', description: 'Enter the name of client branch')
 
     }
 
 
     stages {
-        stage('Create K8s Cluster') {
+        stage('CreateK8s_ELKStack') {
             when {
                 expression {
-                    params.PIB_Options == 'CreateK8sCluster'
+                    params.PIB_Options == 'CreateK8s_ELKStack'
                 }
             }
 
             steps {
-                build job: 'Kubernetes_Setup/master', parameters: [string(name: 'Kops_Option', value: 'CreateCluster')]
-                sleep time:5,unit:"MINUTES"
+                build job: 'Airbus_Kubernetes_Setup/master', parameters: [string(name: 'Kops_Option', value: 'CreateCluster')]
+                sleep time: 5, unit: "MINUTES"
                 echo "Validating the cluster"
-                build job: 'Kubernetes_Setup/master', parameters: [string(name: 'Kops_Option', value: 'ValidateCluster')]
+                build job: 'Airbus_Kubernetes_Setup/master', parameters: [string(name: 'Kops_Option', value: 'ValidateCluster')]
                 echo "Deploying Dashboard"
-                build job : 'Kubernetes_Dashboard/master', parameters: [string(name: 'k8sDashboard_Option', value: 'CreateDashboard')]
-                echo "Deploying Istio"
-                build job : 'Istio_Setup/master', parameters: [string(name: 'Isitio_Option', value: 'PrepareIstio')]
-                echo "Deploy Sample Service on Kubernetes"
-                build job : 'Istio_Setup/master', parameters: [string(name: 'Isitio_Option', value: 'CreateSampleApplication')]
-                sleep time:1,unit:"MINUTES"
-                echo 'Checking Running Service'
-                build job : 'Istio_Setup/master', parameters: [string(name: 'Isitio_Option', value: 'checkServiceStatus')]
+                build job: 'Airbus_Kubernetes_Dashboard/master', parameters: [string(name: 'k8sDashboard_Option', value: 'CreateDashboard')]
+                echo "Deploying Ingress_Controller"
+                build job: 'Airbus_Kubernetes_Ingress/master', parameters: [string(name: 'k8sDashboard_Option', value: 'CreateDashboard')]
+                echo "Deploying ELK_STACK"
+                build job: 'Airbus_Kubernetes_ELK/master', parameters: [string(name: 'elk_Option', value: 'DeployELK')]
 
             }
         }
 
-        stage('Delete K8s Cluster') {
+        stage('DestroyK8s_ELKStack') {
             when {
                 expression {
-                    params.PIB_Options == 'DestroyK8sCluster'
+                    params.PIB_Options == 'DestroyK8s_ELKStack'
                 }
             }
 
             steps {
-                build job: 'Kubernetes_Setup/master', parameters: [string(name: 'Kops_Option', value: 'DestroyCluster')]
-                  }
-        }
-
-
-        stage('WSO2 Deployment on PIB K8s') {
-            when {
-                expression {
-                    params.PIB_Options == 'WSO2_K8s'
-                }
-            }
-
-            steps {
-                build job: 'PIB_WSO2_Setup', parameters: [string(name: 'Kops_Option', value: 'CreateCluster')]
+                build job: 'Aribus_Kubernetes_Setup/master', parameters: [string(name: 'Kops_Option', value: 'DestroyCluster')]
             }
         }
+
+
     }
 }

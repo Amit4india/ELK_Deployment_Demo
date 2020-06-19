@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+    parameters {
+        choice(
+                choices: ['DeployELK','AccessELK', 'DeleteELK', ],
+                description: 'Select want you want to do', name: 'elk_Option'
+        )
+    }
+      stages {
+
+
+       stage('DeployELK') {
+            when {
+                expression {
+                    params.elk_Option == 'DeployELK'
+                }
+            }
+
+            steps {
+               sh 'cd elk-stack'
+               echo "Deploying ELK stack"
+               sh '''
+               kubectl apply -f elk-namespace.yaml
+               kubectl apply -f elk-serviceaccount.yaml
+               kubectl apply -f elastic-deployment.yaml
+               kubectl apply -f elastic-service.yaml
+               kubectl apply -f logstash-config.yaml
+               kubectl apply -f logstash-deployment.yaml
+               kubectl apply -f logstash-service.yaml
+               kubectl apply -f kibana-deployment.yaml
+               kubectl apply -f kibana-service.yaml
+               '''
+               echo " Deploying MetricBeat and FileBeat"
+               sh '''
+               kubectl apply -f metricbeat-ds.yaml
+               kubectl apply -f filebeat-ds.yaml
+               '''
+
+                }
+            }
+
+
+        stage('AccessELK') {
+           when {
+           expression {
+              params.elk_Option == 'AccessELK'
+           }
+       }
+         steps {
+           echo " Getting all resource in desired namespace"
+            sh 'kubectl get all -n logging'
+           echo "Getting ingress service"
+           sh ' kubectl get ingress -n logging'
+
+
+       }
+
+    }
+
+       stage('DeleteELK') {
+           when {
+           expression {
+              params.elk_Option == 'DeleteELK'
+           }
+       }
+         steps {
+           sh ' kubectl delete namespace logging '
+
+       }
+
+    }
+
+          }
+}

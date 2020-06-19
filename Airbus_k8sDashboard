@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+    parameters {
+        choice(
+                choices: ['CreateDashboard','AccessDashboard' , 'DestroyDashboard'],
+                description: 'Select want you want to do', name: 'k8sDashboard_Option'
+        )
+    }
+      stages {
+
+
+       stage('CreateDashboard') {
+            when {
+                expression {
+                    params.k8sDashboard_Option == 'CreateDashboard'
+                }
+            }
+
+            steps {
+
+               sh '''
+               cd /home/users/amit_srivastava/k8s_setup
+               kubectl apply -f k8sdashboard.yaml
+               kubectl create serviceaccount dashboard -n default
+               kubectl create clusterrolebinding dashboard-admin -n default --clusterrole=cluster-admin --serviceaccount=default:dashboard
+               '''
+                }
+            }
+
+
+        stage('AccessDashboard') {
+           when {
+           expression {
+              params.k8sDashboard_Option == 'AccessDashboard'
+           }
+       }
+         steps {
+
+            sh 'kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode'
+
+       }
+
+    }
+
+       stage('DestroyDashboard') {
+           when {
+           expression {
+              params.k8sDashboard_Option == 'DestroyDashboard'
+           }
+       }
+         steps {
+           sh '''
+               cd /home/users/amit_srivastava/k8s_setup
+               kubectl delete -f k8sdashboard.yaml
+               '''
+
+       }
+
+    }
+            }
+}
