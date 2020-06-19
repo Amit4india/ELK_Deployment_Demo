@@ -45,8 +45,8 @@ Filebeat and Metricbeat instances are installed as DaemonSets, meaning there is 
 
 
 Installation
-
-Firstly update the kibana-service.yaml file so that the ingress route matches one that points at your cluster.
+Start with the elk-namespace.yaml and the create elk-serviceaccount.yaml
+Second update the kibana-service.yaml file so that the ingress route matches one that points at your cluster.
 
 To install this on a cluster apply all the files.
 
