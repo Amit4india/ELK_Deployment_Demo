@@ -9,7 +9,7 @@ pipeline {
       stages {
 
 
-       stage('CreateDashboard') {
+       stage('CreateIngressController') {
             when {
                 expression {
                     params.k8sIngress_Option == 'CreateIngressController'

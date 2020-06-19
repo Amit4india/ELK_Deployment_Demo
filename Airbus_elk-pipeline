@@ -35,6 +35,10 @@ pipeline {
                kubectl apply -f metricbeat-ds.yaml
                kubectl apply -f filebeat-ds.yaml
                '''
+                echo " Deploying Curator"
+                 sh '''
+                     kubectl apply -f curator-cronjob.yaml
+                    '''
 
                 }
             }

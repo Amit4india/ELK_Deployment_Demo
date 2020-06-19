@@ -26,7 +26,7 @@ pipeline {
                 echo "Deploying Dashboard"
                 build job: 'Airbus_Kubernetes_Dashboard/master', parameters: [string(name: 'k8sDashboard_Option', value: 'CreateDashboard')]
                 echo "Deploying Ingress_Controller"
-                build job: 'Airbus_Kubernetes_Ingress/master', parameters: [string(name: 'k8sDashboard_Option', value: 'CreateDashboard')]
+                build job: 'Airbus_Kubernetes_Ingress/master', parameters: [string(name: 'k8sIngress_Option', value: 'CreateIngressController')]
                 echo "Deploying ELK_STACK"
                 build job: 'Airbus_Kubernetes_ELK/master', parameters: [string(name: 'elk_Option', value: 'DeployELK')]
 
