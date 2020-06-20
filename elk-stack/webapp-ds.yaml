@@ -42,7 +42,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webserver
+  name: webserver-deployment
   namespace: logging
   labels:
    app: web
