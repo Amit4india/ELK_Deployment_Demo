@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver-deployment
+  namespace: logging
+  labels:
+   app: web
+spec:
+ ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+ selector:
+   app: web
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress
+  namespace: logging
+  labels:
+    app: web
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    -
+      http:
+        paths:
+          -
+            backend:
+              serviceName:  webserver-deployment
+              servicePort: 80
+            path: /web
