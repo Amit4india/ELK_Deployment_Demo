@@ -5,19 +5,16 @@ metadata:
   namespace: logging
   labels:
     k8s-app: web
-
 spec:
   serviceName: webserver-deployment
   replicas: 5
   selector:
     matchLabels:
       k8s-app: webserver-deployment
-
   template:
     metadata:
       labels:
         k8s-app: web
-
     spec:
       containers:
         - image:httpd
