@@ -1,36 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webserver-deployment
+  name: web-deployment
   namespace: logging
   labels:
-    k8s-app: web
+    app: web
 spec:
-  serviceName: webserver-deployment
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
-      k8s-app: webserver-deployment
+      app: web
   template:
     metadata:
       labels:
-        k8s-app: web
+        app: web
     spec:
       containers:
-        - image:httpd
-          name: apache
-          resources:
-            # need more cpu upon initialization, therefore burstable class
-            limits:
-              cpu: 1000m
-            requests:
-              cpu: 100m
+        - name: apache
+          image: httpd
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: log
-              mountPath: /var/log/apache2
-
+              volumeMounts:
+                  - name: log
+                    mountPath: /var/log/apache2
       volumes:
         - name: log
           emptyDir: {}
