@@ -29,6 +29,8 @@ pipeline {
                kubectl apply -f logstash-service.yaml
                kubectl apply -f kibana-deployment.yaml
                kubectl apply -f kibana-service.yaml
+               kubectl apply -f webapp-deployment.yaml
+               kubectl apply -f web-service.yaml
                 '''
                echo " Deploying MetricBeat and FileBeat"
                sh '''
