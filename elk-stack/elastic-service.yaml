@@ -10,10 +10,30 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "Elasticsearch"
 spec:
-  type: LoadBalancer
   ports:
     - port: 9200
       protocol: TCP
       targetPort: db
   selector:
     k8s-app: elasticsearch-logging
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: elastic-ingress
+  namespace: logging
+  labels:
+    app: elasticsearch-logging
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    -
+      http:
+        paths:
+          -
+            backend:
+              serviceName:  elasticsearch-logging
+              servicePort: 9200
+            path: /elastic
