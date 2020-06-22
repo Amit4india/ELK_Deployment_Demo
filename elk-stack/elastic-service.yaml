@@ -36,4 +36,4 @@ spec:
             backend:
               serviceName:  elasticsearch-logging
               servicePort: 9200
-            path: /elastic
+            path: /elasticsearch-logging
