@@ -22,6 +22,26 @@ spec:
       containers:
         - name: kibana-logging
           image: docker.elastic.co/kibana/kibana-oss:6.2.4
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 5601
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+            readinessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /
+                port: 5601
+                scheme: HTTP
+              initialDelaySeconds: 20
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 5
           resources:
             # need more cpu upon initialization, therefore burstable class
             limits:
