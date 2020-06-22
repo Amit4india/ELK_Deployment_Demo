@@ -43,7 +43,7 @@ public class KibanaTest {
 			extent = new ExtentReports();
 			extent.attachReporter(htmlReporter);
 			chromeDriverLocation = System.getProperty("user.dir")+ "\\drivers\\chromedriver.exe";
-			geckDriverLocation = System.getProperty("user.dir")+ "\\drivers\\geckodriver.exe";
+			geckDriverLocation = "FunctionalTest/drivers/geckodriver";
 		}
 
 		@Test
