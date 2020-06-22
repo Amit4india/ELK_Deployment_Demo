@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    stages {
+           stage('UpdateConfig') {
+           steps {
+                         echo "Update ELK Config"
+                          sh '''
+                          cd elk-stack
+                          kubectl apply -f logstash-config.yaml
+                          '''
+           }
+           }
+           }
+           }
