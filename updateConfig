@@ -8,6 +8,7 @@ pipeline {
                           sh '''
                           cd elk-stack
                           kubectl apply -f logstash-config.yaml
+                          kubectl get namespaces
                           '''
            }
            }
