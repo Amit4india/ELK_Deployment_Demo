@@ -1,12 +1,7 @@
 pipeline {
     agent any
-    tools {
-            maven 'mvn'
-        }
      stages {
-
-
-           stage('FunctionalTest') {
+           stage('PerformanceTest') {
 
            steps {
                          echo "Starting Functional Test"
