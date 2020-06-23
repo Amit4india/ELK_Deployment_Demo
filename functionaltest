@@ -5,7 +5,16 @@ pipeline {
         }
      stages {
 
-
+          stage('Code Quality Analysis - Functional Testing') {
+                          echo 'Analysing code...'
+                          withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'sonarpassword', usernameVariable: 'sonaruser')])
+                          {
+                          sh '''
+                          cd $WORKSPACE/Essentials/FunctionalTest
+                          mvn clean package
+                          mvn sonar:sonar -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpassword} -Dsonar.exclusions=**/swagger/**/*,**/model/**/* -Dsonar.host.url=\'https://sonar-almsmart.demos.hclets.com/\''''
+                          }
+                  }
            stage('FunctionalTest') {
 
            steps {
