@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+             string(name: 'EndpointURL', defaultValue:'' , description: 'Enter the EndpointURL')
+            }
      stages {
            stage('PerformanceTest') {
 
@@ -11,7 +14,7 @@ pipeline {
                           cd /var/lib/jenkins/apache-jmeter-5.3/bin
                           pwd
                           ./jmeter --version
-                          ./jmeter -n -t PerformanceTestV1.jmx -l testresultsKibana.jtl
+                          ./jmeter -n -t PerformanceTestV1.jmx -Jurl=$EndpointURL -f -l result2.jtl
 
                           '''
            }

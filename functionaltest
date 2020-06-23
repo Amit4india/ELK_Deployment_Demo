@@ -21,15 +21,5 @@ pipeline {
                           }
                           }
                   }
-           stage('FunctionalTest') {
-
-           steps {
-                         echo "Starting Functional Test"
-                          sh '''
-                          cd Essentials/FunctionalTest
-                          mvn clean install
-                          '''
-           }
-           }
-           }
+                  }
            }
