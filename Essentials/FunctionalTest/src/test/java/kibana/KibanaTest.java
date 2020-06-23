@@ -55,7 +55,7 @@ public class KibanaTest {
 			options.addArguments("--disable-features=VizDisplayCompositor");
 			driver = new ChromeDriver(options);
 			*/
-			String KibanaURL = System.getProperty("EndpointURL");
+			String kibanaURL = System.getProperty("EndpointURL");
 			System.setProperty("webdriver.gecko.driver",geckDriverLocation);
 			driver = new FirefoxDriver();
 			Thread.sleep(5000);
