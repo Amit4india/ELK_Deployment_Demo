@@ -3,6 +3,9 @@ pipeline {
     tools {
             maven 'mvn'
         }
+        parameters {
+         string(name: 'EndpointURL', defaultValue:'' , description: 'Enter the EndpointURL')
+        }
      stages {
 
           stage('Code Quality Analysis - Functional Testing') {
