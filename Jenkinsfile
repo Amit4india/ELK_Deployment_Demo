@@ -23,8 +23,6 @@ pipeline {
                 sleep time: 5, unit: "MINUTES"
                 echo "Validating the cluster"
                 build job: 'Airbus_Kubernetes_Setup', parameters: [string(name: 'Kops_Option', value: 'ValidateCluster')]
-                echo "Deploying Dashboard"
-                build job: 'Airbus_Kubernetes_Dashboard', parameters: [string(name: 'k8sDashboard_Option', value: 'CreateDashboard')]
                 echo "Deploying Ingress_Controller"
                 build job: 'Airbus_Kubernetes_Ingress', parameters: [string(name: 'k8sIngress_Option', value: 'CreateIngressController')]
                 echo "Deploying ELK_STACK"

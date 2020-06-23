@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    tools {
+            maven 'mvn'
+        }
+     stages {
+
+
+           stage('FunctionalTest') {
+
+           steps {
+                         echo "Starting Functional Test"
+                          sh '''
+                          cd Essentials/PerformanceTesting
+                          jmeter -n –t PerformanceTestV1.jmx -l testresultsKibana.jtl
+
+                          '''
+           }
+           }
+           }
+           }
