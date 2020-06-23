@@ -10,7 +10,8 @@ pipeline {
                           cp PerformanceTestV1.jmx /var/lib/jenkins/apache-jmeter-5.3/bin
                           cd /var/lib/jenkins/apache-jmeter-5.3/bin
                           pwd
-                          jmeter.sh -n –t PerformanceTestV1.jmx -l testresultsKibana.jtl
+                          ./jmeter --version
+                          ./jmeter -n –t PerformanceTestV1.jmx -l testresultsKibana.jtl
 
                           '''
            }
