@@ -11,7 +11,7 @@ pipeline {
                           cd /var/lib/jenkins/apache-jmeter-5.3/bin
                           pwd
                           ./jmeter --version
-                          ./jmeter -n –t PerformanceTestV1.jmx -l testresultsKibana.jtl
+                          ./jmeter -n -t PerformanceTestV1.jmx -l testresultsKibana.jtl
 
                           '''
            }
