@@ -3,7 +3,7 @@
 <suite name="Suite" verbose="10" configfailurepolicy="skip">
 
     <test name="Complete test run">
-<parameter name = "kibanaURL" value="http://aded1d777f6844fc0b1c4a2bd2ca04ea-753478746.ap-south-1.elb.amazonaws.com/app/kibana#/home?_g=()"/>
+<!--<parameter name = "kibanaURL" value="http://aded1d777f6844fc0b1c4a2bd2ca04ea-753478746.ap-south-1.elb.amazonaws.com/app/kibana#/home?_g=()"/>-->
         <classes>
             <class name="kibana.KibanaTest" />
         </classes>

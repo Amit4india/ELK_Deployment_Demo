@@ -47,8 +47,7 @@ public class KibanaTest {
 		}
 
 		@Test
-		@org.testng.annotations.Parameters("kibanaURL")
-		public void kibanaScreenValidation(String kibanaURL) throws Exception
+		public void kibanaScreenValidation() throws Exception
 		{
 
 			/*System.setProperty("webdriver.chrome.driver", driverLocation);
@@ -56,7 +55,7 @@ public class KibanaTest {
 			options.addArguments("--disable-features=VizDisplayCompositor");
 			driver = new ChromeDriver(options);
 			*/
-			
+			String KibanaURL = System.getProperty("EndpointURL");
 			System.setProperty("webdriver.gecko.driver",geckDriverLocation);
 			driver = new FirefoxDriver();
 			Thread.sleep(5000);
