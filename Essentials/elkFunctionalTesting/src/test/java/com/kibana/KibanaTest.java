@@ -65,7 +65,7 @@ public class KibanaTest {
     @Test(priority = 0)
     public void kibanTest() throws Exception {
         System.out.println("Verifying the Kibana Home Page");
-        DesiredCapabilities capability = DesiredCapabilities.chrome();
+        DesiredCapabilities capability = DesiredCapabilities.Firefox();
         driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         //driver.get("https://almsmart.demos.hclets.com/Presto/about-us.jsp");
