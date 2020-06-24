@@ -53,10 +53,11 @@ public class KibanaTest {
 			options.addArguments("--disable-features=VizDisplayCompositor");
 			driver = new ChromeDriver(options);
 			*/
-			FirefoxOptions options = new FirefoxOptions();
-			options.addArguments("-headless");
+
 			String kibanaURL = System.getProperty("EndpointURL");
 			System.setProperty("webdriver.gecko.driver",geckDriverLocation);
+			FirefoxOptions options = new FirefoxOptions();
+			options.addArguments("-headless");
 			driver = new FirefoxDriver(options);
 			Thread.sleep(5000);
 			
