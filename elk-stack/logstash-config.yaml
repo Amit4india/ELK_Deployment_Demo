@@ -15,23 +15,17 @@ data:
       }
     }
     filter {
-     grok {
-             match => { "message" => "%{COMBINEDAPACHELOG}" }
+    grok {
+    match => { "message" => "%{COMBINEDAPACHELOG}" }
+          }
+    date {
+     match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
          }
-         date {
-           match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
-         }
-      if [message] =~ /^\{.*\}$/ {
-        json {
-          source => "message"
-        }
+     geoip {
+      source => "clientip"
       }
-      if [ClientHost] {
-        geoip {
-          source => "ClientHost"
         }
-      }
-    }
+        }
     output {
         elasticsearch {
             hosts => [ "elasticsearch-logging:9200" ]
