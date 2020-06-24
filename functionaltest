@@ -27,7 +27,7 @@ pipeline {
                                            echo "Starting Functional Test"
                                             sh '''
                                             cd Essentials/FunctionalTest
-                                            mvn clean install
+                                            mvn clean test -DEndpointURL="$EndpointURL"
                                             '''
                              }
                              }
