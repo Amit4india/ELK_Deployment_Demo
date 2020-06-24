@@ -7,7 +7,19 @@ pipeline {
          string(name: 'EndpointURL', defaultValue:'' , description: 'Enter the EndpointURL')
         }
      stages {
-
+           stage('Code Quality Analysis - Functional Testing') {
+                     steps {
+                                     echo 'Analysing code...'
+                                     withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'sonarpassword', usernameVariable: 'sonaruser')])
+                                     {
+                                     sh '''
+                                     cd $WORKSPACE/Essentials/FunctionalTest
+                                     mvn clean package
+                                     mvn sonar:sonar -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpassword} -Dsonar.exclusions=**/swagger/**/*,**/model/**/* -Dsonar.host.url=\'https://sonar-almsmart.demos.hclets.com/\'
+                                     '''
+                                     }
+                                     }
+                             }
 
                    stage('FunctionalTest') {
 
@@ -15,15 +27,10 @@ pipeline {
                                            echo "Starting Functional Test"
                                             sh '''
                                             cd Essentials/elkFunctionalTesting
-                                            mvn clean test -DEndpointURL="$EndpointURL"
+                                            mvn clean test -DEndpointURL="http://a35c4e9f28d44437e8637b23665ff4d0-897874364.ap-south-1.elb.amazonaws.com/"
                                             '''
                              }
                              }
                   }
-                   post {
-                          always {
-                              archiveArtifacts  "target/**/*"
-                              junit 'target/surefire-reports/*.xml'
-                          }
-                      }
+
            }

@@ -72,8 +72,6 @@ public class KibanaTest {
         String kibanaURL = System.getProperty("EndpointURL");
         System.out.println("kibanaURL" + kibanaURL);
         driver.get(kibanaURL);
-
-
         fileWithPath = Util.takeSnapShot(driver);
         WebDriverWait wait = new WebDriverWait(driver, 240);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li[@class='logo kibana']")));
