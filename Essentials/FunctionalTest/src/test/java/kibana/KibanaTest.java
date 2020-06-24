@@ -24,9 +24,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 public class KibanaTest {
 
-	public class CreatingLogs
-	{
-		ExtentHtmlReporter htmlReporter;
+	  ExtentHtmlReporter htmlReporter;
 		ExtentReports extent;
 		ExtentTest test;
 		String timeStamp;
@@ -43,7 +41,7 @@ public class KibanaTest {
 			extent = new ExtentReports();
 			extent.attachReporter(htmlReporter);
 			chromeDriverLocation = System.getProperty("user.dir")+ "\\drivers\\chromedriver.exe";
-			geckDriverLocation = "FunctionalTest/drivers/geckodriver";
+			geckDriverLocation = "drivers/geckodriver";
 		}
 
 		@Test
@@ -145,4 +143,4 @@ public class KibanaTest {
 		}
 	}
 
-}
+
