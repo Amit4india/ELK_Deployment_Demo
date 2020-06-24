@@ -66,7 +66,7 @@ public class KibanaTest {
     public void PrescottPage() throws Exception {
         System.out.println("Verifying the Kibana Home Page");
         DesiredCapabilities capability = DesiredCapabilities.chrome();
-        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+        driver = new RemoteWebDriver(new URL("http://64.225.84.31:4444/wd/hub"), capability);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         /* System.setProperty("webdriver.chrome.driver", "C:\\Users\\amiti\\Downloads\\drivers\\chromedriver.exe");
