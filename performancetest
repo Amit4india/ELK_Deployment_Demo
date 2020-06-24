@@ -15,6 +15,7 @@ pipeline {
                           pwd
                           ./jmeter --version
                           ./jmeter -n -t PerformanceTestV1.jmx -Jurl=a35c4e9f28d44437e8637b23665ff4d0-897874364.ap-south-1.elb.amazonaws.com -f -l result2.jtl
+                          ./shutdown.sh
 
                           '''
            }
