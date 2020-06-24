@@ -13,7 +13,7 @@ pipeline {
                                      withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'sonarpassword', usernameVariable: 'sonaruser')])
                                      {
                                      sh '''
-                                     cd $WORKSPACE/Essentials/FunctionalTest
+                                     cd $WORKSPACE/Essentials/elkFunctionalTesting
                                      mvn clean package
                                      mvn sonar:sonar -Dsonar.login=${sonaruser} -Dsonar.password=${sonarpassword} -Dsonar.exclusions=**/swagger/**/*,**/model/**/* -Dsonar.host.url=\'https://sonar-almsmart.demos.hclets.com/\'
                                      '''
