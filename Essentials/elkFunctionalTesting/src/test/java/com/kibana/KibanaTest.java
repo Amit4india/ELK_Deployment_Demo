@@ -32,7 +32,7 @@ public class KibanaTest {
     String chromeDriverLocation;
     String geckDriverLocation;
     String fileWithPath;
-    WebDriver driver;
+    RemoteWebDriver driver;
 
 
     @BeforeTest
