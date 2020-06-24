@@ -30,7 +30,7 @@ ELKStack
     --logstash-deployment.yaml
     --logstash-service.yaml
     --metricbeat-ds.yaml
----Essentials
+---Automated_Testing
 ingress_controller
 K8s_setup
 ingresscontroller

@@ -9,7 +9,7 @@ pipeline {
            steps {
                          echo "Starting Functional Test"
                           sh '''
-                          cd Essentials/PerformanceTesting
+                          cd Automated_Testing/PerformanceTesting
                           cp PerformanceTestV1.jmx /var/lib/jenkins/apache-jmeter-5.3/bin
                           cd /var/lib/jenkins/apache-jmeter-5.3/bin
                           pwd

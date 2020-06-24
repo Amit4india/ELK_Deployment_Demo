@@ -11,7 +11,7 @@ pipeline {
         string (name: 'nodeCount', defaultValue: '3' , description: 'Enter the no of Node')
         string (name: 'nodeType', defaultValue: 't2.large' , description: 'Enter the Node VM type')
         string (name: 'Name', defaultValue: 'hcl.k8s.local' , description: 'Enter your clusterName')
-        string (name: 'KOPS_STATE_STORE', defaultValue: 's3://clusters.k8s.hclkops.vpc' , description: 'Enter s3 bucket name')
+        string (name: 'KOPS_STATE_STORE', defaultValue: 's3://bucketUrl' , description: 'Enter s3 bucket name')
 
     }
 
