@@ -8,9 +8,7 @@
         <!-- <parameter name="URL"  value="$p" /> -->
         <classes>
             <class name="com.kibana.KibanaTest" />
-            <!--<class name="kibana.PreStoTest" />-->
-            <!-- <class name="kibana.PreStoTest" /> -->
-        </classes>
+            </classes>
     </test>
 
 

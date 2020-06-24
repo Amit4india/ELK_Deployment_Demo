@@ -1,1 +1,1 @@
-This repo contain the test cases for presto UI 
+This repo contain the test cases for Kibana UI 

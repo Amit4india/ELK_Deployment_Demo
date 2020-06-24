@@ -1,3 +1,5 @@
+// This pipeline will update the logstash configuration
+
 pipeline {
     agent any
 

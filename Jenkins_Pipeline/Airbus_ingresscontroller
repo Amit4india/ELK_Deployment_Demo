@@ -27,7 +27,7 @@ pipeline {
             }
 
 
-        stage('AccessDashboard') {
+        stage('AccessIngress') {
            when {
            expression {
               params.k8sIngress_Option == 'AccessIngress'
@@ -41,7 +41,7 @@ pipeline {
 
     }
 
-       stage('DestroyDashboard') {
+       stage('DestroyIngressController') {
            when {
            expression {
               params.k8sIngress_Option == 'DestroyIngressController'
@@ -49,7 +49,6 @@ pipeline {
        }
          steps {
            sh '''
-               cd /home/users/amit_srivastava/k8s_setup
                kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
                kubectl delete -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/aws/service-l4.yaml
                '''
@@ -57,25 +56,6 @@ pipeline {
        }
 
     }
-        stage('DeploySampleApplication') {
-            when {
-                expression {
-                    params.k8sIngress_Option == 'DeploySampleApplication'
-                }
-            }
-
-            steps {
-
-               sh '''
-               cd /home/users/amit_srivastava/k8s_setup
-               kubectl apply -f apple.yaml
-               kubectl apply -f banana.yaml
-               kubectl apply -f ingressDefinition.yaml
-               '''
-                }
-            }
-
-
 
             }
 }
