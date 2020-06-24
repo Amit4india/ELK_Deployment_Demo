@@ -17,27 +17,17 @@ In this logging Infrastructure, we are using following.
 Directory Structure
 ELKStack
 .idea
----elk-stack
-    --curator-cronjob.yaml
-    --elastic-deployment.yaml
-    --elastic-service.yaml
-    --elk-namespace.yaml
-    --elk-serviceaccount.yaml
-    --filebeat-ds.yaml
-    --kibana-deployment.yaml
-    --kibana-service.yaml
-    --logstash-config.yaml
-    --logstash-deployment.yaml
-    --logstash-service.yaml
-    --metricbeat-ds.yaml
----Automated_Testing
-ingress_controller
-K8s_setup
-ingresscontroller
-Jenkinsfile
-pibkubernetes
-README
-
+--Automated_Testing
+--elk-stack
+--Jenkins_Pipeline
+    --Airbus_elk-pipeline
+    --Airbus_ingresscontroller
+    --Airbus_k8sDashboard
+    --Airbus_Kubernetes
+    --functionaltest
+    --Master_Jenkinsfile
+    --performancetest
+    --update-ConfigMap
 Each Elasticsearch is installed as a StatefulSet so that there is some awareness between them.
 
 Filebeat and Metricbeat instances are installed as DaemonSets, meaning there is one for every node we have. This is because they read the logs right off the node. Without this we would miss logs from some nodes.
